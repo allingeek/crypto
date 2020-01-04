@@ -26,7 +26,7 @@ func TestPoolArgon2(t *testing.T) {
 	iHashWant := deriveKey(argon2i, genKatPassword, genKatSalt, nil, nil, 3, 32, 4, 32)
 	idHashWant := deriveKey(argon2id, genKatPassword, genKatSalt, nil, nil, 3, 32, 4, 32)
 
-	pool := &Pool{blockCount: 2}
+	pool := &Pool{BlockCount: 2}
 	hash := pool.Key(genKatPassword, genKatSalt, 3, 32, 4, 32)
 	if !bytes.Equal(hash, iHashWant) {
 		t.Errorf("derived key does not match - got: %s , want: %s", hex.EncodeToString(hash), hex.EncodeToString(iHashWant))
