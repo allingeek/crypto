@@ -286,7 +286,7 @@ func phi(rand, m, s uint64, lane, lanes uint32) uint32 {
 
 type Pool struct {
 	pool       chan []block
-	blockCount uint
+	BlockCount uint
 	memory     uint32
 	syncPoints uint32
 	threads    uint32
@@ -307,7 +307,7 @@ func (pool *Pool) deriveKey(mode int, password, salt, secret, data []byte, time,
 	if threads < 1 {
 		panic("argon2: parallelism degree too low")
 	}
-	if pool.blockCount <= 0 {
+	if pool.BlockCount <= 0 {
 		panic("argon2: invalid pool block count")
 	}
 
@@ -323,8 +323,8 @@ func (pool *Pool) deriveKey(mode int, password, salt, secret, data []byte, time,
 			memory = 2 * syncPoints * uint32(threads)
 		}
 
-		pool.pool = make(chan []block, pool.blockCount)
-		for i := uint(0); i < pool.blockCount; i++ {
+		pool.pool = make(chan []block, pool.BlockCount)
+		for i := uint(0); i < pool.BlockCount; i++ {
 			b := make([]block, memory)
 			pool.pool <- b
 		}
